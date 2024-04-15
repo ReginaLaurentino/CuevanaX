@@ -1,0 +1,58 @@
+﻿@model Genre
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    body {
+        background-color: #51d1f6; /* Azul claro */
+        backdrop-filter: blur(10px); /* Efecto glass */
+        padding-bottom: 60px; /* Altura del footer */
+    }
+
+    .btn-details {
+        background-color: #82c4e8; /* Celestito más oscuro */
+        border-color: #82c4e8; /* Celestito más oscuro */
+        color: #fff; /* Texto blanco */
+    }
+
+        .btn-details:hover {
+            background-color: #5cafe0; /* Celestito aún más oscuro al pasar el mouse */
+            border-color: #5cafe0; /* Celestito aún más oscuro al pasar el mouse */
+        }
+
+    .details-container {
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+        border-radius: 10px; /* Bordes redondeados */
+        padding: 20px; /* Espaciado interno */
+    }
+</style>
+
+<div class="container mt-5 details-container">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+
+    <div>
+        <h4>Genre</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GenreName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GenreName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.Id)
+            </dd>
+        </dl>
+    </div>
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-details">Edit</a> |
+        <a asp-action="Index" class="btn btn-details">Back to List</a>
+    </div>
+</div>

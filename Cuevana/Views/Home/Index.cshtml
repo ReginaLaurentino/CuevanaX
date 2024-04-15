@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Movie>
+@{
+    ViewData["Title"] = "Tu Biblioteca de Películas";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar..." oninput="searchMovies()">
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3" id="movieCarousel">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach (var item in Model)
+            {
+                <div class="carousel-item @if (item == Model.First()) {
+            <text>active</text>
+ }">
+                    <a href="@Url.Action("Details", "Movies", new { id = item.Id })" style="text-decoration: none;">
+                        <div class="card">
+                            <img src="@Url.Content("~/uploads/" + item.Movieimage)" onerror="this.src='@Url.Content("~/uploads/notfound.jpg")'" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title font-weight-bold">@item.Title</h5>
+                                <p class="card-text">Director: @item.Director</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('.carousel').carousel({
+            interval: 2000
+        });
+
+        function searchMovies() {
+            var searchInput = document.getElementById("searchInput").value.toLowerCase();
+            var movieCarousel = document.getElementById("movieCarousel");
+
+            if (searchInput.trim() === "") {
+                movieCarousel.style.display = "block";
+                return;
+            }
+
+            var movieTitles = [@Html.Raw(Json.Serialize(Model.Select(m => m.Title.ToLower())))];
+            var foundMovie = null;
+            for (var i = 0; i < movieTitles.length; i++) {
+                if (movieTitles[i].includes(searchInput)) {
+                    foundMovie = movieTitles[i];
+                    break;
+                }
+            }
+
+            if (foundMovie !== null) {
+                movieCarousel.style.display = "none";
+            } else {
+                movieCarousel.style.display = "block";
+            }
+        }
+    </script>
+}

@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "Peliculas";
+}
+
+<style>
+    .glass-container {
+        background-color: rgba(255, 255, 255, 0.8); 
+        border-radius: 10px; 
+        padding: 20px;
+        backdrop-filter: blur(10px); 
+    }
+
+    .table {
+        background-color: #add8e6; 
+    }
+
+    .btn-edit, .btn-details, .btn-delete {
+        background-color: #28a745;
+        border-color: #28a745; 
+        color: #fff;
+        margin-right: 5px;
+    }
+
+        .btn-edit:hover, .btn-details:hover, .btn-delete:hover {
+            background-color: #218838; 
+            border-color: #218838; 
+        }
+</style>
+
+<div class="container mt-5 glass-container">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                   Titulo
+                </th>               
+                <th>
+                   Imagen
+                </th>
+                <th>
+                    Reparto
+                </th>
+                <th>
+                    Director
+                </th>
+                <th>
+                    Link
+                </th>
+                <th>
+                    Genero
+                </th>
+               
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>                    
+                    <td>
+                        <img id="movieImage_@item.Id" src="@Url.Content("~/uploads/" + item.Movieimage)" alt="" onerror="this.src='@Url.Content("~/uploads/notfound.jpg")'" style="max-width: 100px; max-height: 100px;" onload="fixImageOrientation(this)" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Casting)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Director)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Link)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre.Id)
+                    </td>
+                  
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-details">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function fixImageOrientation(img) {
+            EXIF.getData(img, function () {
+                var orientation = EXIF.getTag(this, "Orientation");
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+
+                var width = img.width;
+                var height = img.height;
+
+                if (orientation > 4) {
+                    canvas.width = height;
+                    canvas.height = width;
+                } else {
+                    canvas.width = width;
+                    canvas.height = height;
+                }
+
+                switch (orientation) {
+                    case 2:
+                        ctx.transform(-1, 0, 0, 1, width, 0);
+                        break;
+                    case 3:
+                        ctx.transform(-1, 0, 0, -1, width, height);
+                        break;
+                    case 4:
+                        ctx.transform(1, 0, 0, -1, 0, height);
+                        break;
+                    case 5:
+                        ctx.transform(0, 1, 1, 0, 0, 0);
+                        break;
+                    case 6:
+                        ctx.transform(0, 1, -1, 0, height, 0);
+                        break;
+                    case 7:
+                        ctx.transform(0, -1, -1, 0, height, width);
+                        break;
+                    case 8:
+                        ctx.transform(0, -1, 1, 0, 0, width);
+                        break;
+                    default:
+                        break;
+                }
+
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                img.src = canvas.toDataURL("image/jpeg");
+            });
+        }
+    </script>
+}

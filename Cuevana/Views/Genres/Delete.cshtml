@@ -1,0 +1,92 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<style>
+    body {
+        background-color: #add8e6; /* Azul celeste */
+        padding-bottom: 60px; /* Altura del footer */
+    }
+
+    .btn-delete {
+        background-color: #ff5050; /* Rojo */
+        border-color: #ff5050; /* Rojo */
+        color: #fff; /* Texto blanco */
+    }
+
+        .btn-delete:hover {
+            background-color: #ff3333; /* Rojo más oscuro al pasar el mouse */
+            border-color: #ff3333; /* Rojo más oscuro al pasar el mouse */
+        }
+
+    .delete-container {
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+        backdrop-filter: blur(10px); /* Efecto glass */
+        border-radius: 10px; /* Bordes redondeados */
+        padding: 20px; /* Espaciado interno */
+    }
+
+    .col-sm-2 {
+        font-weight: bold;
+    }
+</style>
+
+<div class="container mt-5 delete-container">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+
+    <h3>¿Seguro que deseas eliminar esta película?</h3>
+    <div>
+
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Titulo
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>           
+            <dt class="col-sm-2">
+                Imagen
+            </dt>
+            <dd class="col-sm-10">
+                <img id="currentImage" src="~/uploads/@Model.Movieimage" alt="Current Image">
+            </dd>
+            <dt class="col-sm-2">
+                Reparto
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Casting)
+            </dd>
+            <dt class="col-sm-2">
+                Director
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Director)
+            </dd>
+            <dt class="col-sm-2">
+                Link
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Link)
+            </dd>
+            <dt class="col-sm-2">
+                Genero
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Genre.Id)
+            </dd>
+           
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <hr />
+            <input type="submit" value="Eliminar" class="btn btn-delete" /> |
+
+            <a asp-action="Index" class="btn btn-primary">Regresar</a>
+        </form>
+    </div>
+</div>

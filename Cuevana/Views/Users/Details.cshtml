@@ -1,0 +1,62 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    .glass-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    .col-sm-2 {
+        font-weight: bold;
+    }
+
+    #preview, #currentImage {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container mt-5 glass-container">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+    <div>
+        <h4>User</h4>
+        <hr />
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </div>
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UserName)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Password)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.Password)
+            </div>
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Role)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.Role)
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

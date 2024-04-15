@@ -1,0 +1,51 @@
+﻿@model Genre
+
+@{
+    ViewData["Title"] = "Editar Generos";
+}
+
+<style>
+    body {
+        background-color: #add8e6; /* Azul celeste */
+        padding-bottom: 60px; /* Altura del footer */
+    }
+
+    .edit-container {
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+        backdrop-filter: blur(10px); /* Efecto glass */
+        border-radius: 10px; /* Bordes redondeados */
+        padding: 20px; /* Espaciado interno */
+    }
+</style>
+
+<div class="container mt-5 edit-container">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="GenreName" class="control-label"></label>
+                    <input asp-for="GenreName" class="form-control" />
+                    <span asp-validation-for="GenreName" class="text-danger"></span>
+                </div>        <hr />
+                <div class="form-group">
+                    <input type="submit" value="Editar" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <a asp-action="Index">Regresar</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

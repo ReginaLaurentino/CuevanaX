@@ -1,0 +1,16 @@
+﻿.navbar {
+    background: linear-gradient(to right, #007bff, #51d1f6); /* Fondo de color en degrade en tonos azules */
+}
+
+.navbar-brand {
+    font-weight: bold; /* Hacer el texto del logo en negrita */
+}
+
+.navbar-nav .nav-link {
+    color: #000; /* Color del texto */
+}
+
+    .navbar-nav .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Cambio de color al pasar el mouse */
+        transition: background-color 0.3s ease;
+    }

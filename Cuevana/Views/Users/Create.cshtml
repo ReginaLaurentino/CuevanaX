@@ -1,0 +1,78 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    body {
+        background-color: #51d1f6; /* Azul claro */
+        backdrop-filter: blur(10px); /* Efecto glass */
+        padding-bottom: 60px; /* Altura del footer */
+    }
+
+    .glass-effect {
+        background-color: rgba(255, 255, 255, 0.5); /* Color blanco semi-transparente para el efecto glass */
+        padding: 20px; /* Ajuste de espaciado interno */
+        border-radius: 10px; /* Borde redondeado */
+    }
+
+    .btn-create {
+        background-color: #add8e6; /* Celestito */
+        border-color: #add8e6; /* Celestito */
+        color: #fff; /* Texto blanco */
+    }
+
+        .btn-create:hover {
+            background-color: #87ceeb; /* Celestito más oscuro al pasar el mouse */
+            border-color: #87ceeb; /* Celestito más oscuro al pasar el mouse */
+        }
+</style>
+
+<div class="container mt-5 glass-effect">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-4">
+            @using (Html.BeginForm("Create", "Users", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(u => u.Name)
+                    @Html.TextBoxFor(u => u.Name, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Name, null, new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(u => u.UserName)
+                    @Html.TextBoxFor(u => u.UserName, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.UserName, null, new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(u => u.Password)
+                    @Html.TextBoxFor(u => u.Password, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Password, null, new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(u => u.Role)
+                    @Html.DropDownListFor(u => u.Role, new List<SelectListItem>
+                {
+                new SelectListItem { Text = "Admin", Value = "admin" },
+                new SelectListItem { Text = "User", Value = "user" }
+                }, "-- Seleccionar Rol --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Password, null, new { @class = "text-danger" })
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-create" />
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

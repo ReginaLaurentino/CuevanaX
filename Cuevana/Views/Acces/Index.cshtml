@@ -1,0 +1,40 @@
+﻿@model User
+@{
+    Layout = null;
+    var errorMessage = ViewBag.ErrorMessage;
+}
+
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Login.css"> 
+</head>
+<body>
+    <div class="login-container">
+        <h1 class="login-title">Cuevana</h1> 
+        <form asp-controller="Acces" asp-action="Index" method="post">
+            <div class="form-group">
+                <label for="exampleInputtext">Usuario</label>
+                <input type="text" asp-for="UserName" class="form-control" id="exampleInputtext" aria-describedby="textHelp" placeholder="Ingresar Usuario">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
+            </div>
+            </br>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger mt-3">
+                @errorMessage
+            </div>
+        }
+    </div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
