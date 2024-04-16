@@ -23,7 +23,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-insert into Users ('admin', 'admin', 'admin', 'admin')
+insert into Users values ('admin', 'admin', 'admin', 'admin')
 
 CREATE TABLE [dbo].[Genre](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -39,8 +39,8 @@ GO
 ALTER TABLE [dbo].[Genre]  WITH CHECK ADD FOREIGN KEY([UserId])
 REFERENCES [dbo].[Users] ([Id])
 GO
-insert into Genre ('Terror',1)
-insert into Genre ('Aventura',1)
+insert into Genre values('Terror',1)
+insert into Genre values('Aventura',1)
 
 CREATE TABLE [dbo].[Movie](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
